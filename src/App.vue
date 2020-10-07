@@ -7,6 +7,12 @@
       <section class="player">
         <h2 class="song-title">{{ current.title}}</h2>
         <span>{{current.artist}}</span>
+        <div class="controls">
+          <button class="prev">Prev</button>
+          <button class="play" v-if="!isPlaying">Play</button>
+          <button class="pause" v-else>Pause</button>
+          <button class="next">Next</button>
+        </div>
       </section>
     </main>
   </div>
@@ -20,19 +26,26 @@ export default {
   data () {
     return {
       current: {},
+      index: 0,
+      isPlaying: false,
       songs: [
-      {
-        title: 'Etta',
-        artist: 'German',
-        src: require('./assets/etta.mp3')
-      },
-      {
-        title: 'Rhine',
-        artist: 'German',
-        src: require('./assets/rhine.mp3')
-      }
-      ]
+        {
+          title: 'Etta',
+          artist: 'German',
+          src: require('./assets/rhine.mp3')
+        },
+        {
+          title: 'Rhine',
+          artist: 'German',
+          src: require('./assets/rhine.mp3')
+        }
+      ],
+      player: new Audio()
     }
+  },
+  created () {
+    this.current = this.songs[this.index];
+    this.player.src = this.current.src;
   }
 }
 </script>
